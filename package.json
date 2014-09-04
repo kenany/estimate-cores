@@ -1,0 +1,30 @@
+{
+  "name": "estimate-cores",
+  "version": "0.0.0",
+  "description": "Estimate the number of processes that can be executed concurrently",
+  "keywords": [
+    "browser",
+    "concurrency"
+  ],
+  "repository": "KenanY/estimate-cores",
+  "license": "MIT",
+  "author": "Kenan Yildirim <kenan@kenany.me> (http://kenany.me/)",
+  "main": "index.js",
+  "files": [
+    "index.js",
+    "LICENSE.txt"
+  ],
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "tape test/index.js"
+  },
+  "dependencies": {
+    "lodash.isfunction": "^2.4.1"
+  },
+  "devDependencies": {
+    "lodash.isnull": "^2.4.1",
+    "tape": "^2.14.0"
+  }
+}
