@@ -1,5 +1,7 @@
 # estimate-cores
 
+[![Build Status](https://img.shields.io/travis/KenanY/estimate-cores.svg)](https://travis-ci.org/KenanY/estimate-cores)
+
 Estimate the number of processes that can be executed concurrently. Useful if
 you want to figure out how many Web Workers you can spin up. Just remember to
 save a core for the main thread.
