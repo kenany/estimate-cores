@@ -24,7 +24,7 @@
     "lodash.isfunction": "^3.0.0"
   },
   "devDependencies": {
-    "lodash.isnull": "^2.4.1",
+    "lodash.isnull": "^3.0.0",
     "tape": "^2.14.0"
   }
 }
