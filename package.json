@@ -1,6 +1,6 @@
 {
   "name": "estimate-cores",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Estimate the number of processes that can be executed concurrently",
   "keywords": [
     "browser",
