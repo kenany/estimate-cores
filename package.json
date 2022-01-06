@@ -8,7 +8,7 @@
   ],
   "repository": "KenanY/estimate-cores",
   "license": "MIT",
-  "author": "Kenan Yildirim <kenan@kenany.me> (http://kenany.me/)",
+  "author": "Kenan Yildirim <kenan@kenany.me> (https://kenany.me/)",
   "main": "index.js",
   "files": [
     "index.js",
@@ -18,7 +18,7 @@
     "test": "test"
   },
   "engines": {
-    "node": "10 || 12 || >=14"
+    "node": "10 || 12 || 14 || >=16"
   },
   "scripts": {
     "test": "tape test/index.js"
@@ -27,7 +27,6 @@
     "lodash.isfunction": "^3.0.9"
   },
   "devDependencies": {
-    "@kenan/renovate-config": "^1.5.1",
     "lodash.isnull": "^3.0.0",
     "tape": "^5.3.2"
   }

@@ -1,5 +1,8 @@
+'use strict';
+
 var isFunction = require('lodash.isfunction');
 
+/** @type {number} */
 var cachedCores;
 
 function estimateCores(force, callback) {
@@ -45,6 +48,12 @@ function estimateCores(force, callback) {
 
   sample([], 5, 16);
 
+  /**
+   * @param {number[]} max
+   * @param {number} samples
+   * @param {number} numWorkers
+   * @returns {void}
+   */
   function sample(max, samples, numWorkers) {
     if (samples === 0) {
       var avg = Math.floor(max.reduce(function(avg, x) {
@@ -61,6 +70,11 @@ function estimateCores(force, callback) {
     });
   }
 
+  /**
+   * @param {number} numWorkers
+   * @param {(error: Error, results: { et: number; st: number; }[]) => unknown} callback
+   * @returns {void}
+   */
   function map(numWorkers, callback) {
     var workers = [];
     var results = [];
@@ -82,10 +96,17 @@ function estimateCores(force, callback) {
     }
   }
 
+  /**
+   * @param {number} numWorkers
+   * @param {readonly { et: number; st: number; }[]} results
+   * @returns {number}
+   */
   function reduce(numWorkers, results) {
     var overlaps = [];
     for (var n = 0; n < numWorkers; ++n) {
       var r1 = results[n];
+
+      /** @type {number[]} */
       var overlap = overlaps[n] = [];
       for (var i = 0; i < numWorkers; ++i) {
         if (n === i) {

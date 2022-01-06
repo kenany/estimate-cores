@@ -1,7 +1,10 @@
-var estimateCores = require('../');
-var test = require('tape');
-var isFunction = require('lodash.isfunction');
-var isNull = require('lodash.isnull');
+'use strict';
+
+const test = require('tape');
+const isFunction = require('lodash.isfunction');
+const isNull = require('lodash.isnull');
+
+const estimateCores = require('../');
 
 test('exports a function', function(t) {
   t.plan(1);
