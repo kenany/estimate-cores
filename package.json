@@ -6,7 +6,7 @@
     "browser",
     "concurrency"
   ],
-  "repository": "KenanY/estimate-cores",
+  "repository": "github:kenany/estimate-cores",
   "license": "MIT",
   "author": "Kenan Yildirim <kenan@kenany.me> (https://kenany.me/)",
   "main": "index.js",
@@ -18,16 +18,25 @@
     "test": "test"
   },
   "engines": {
-    "node": "14 || 16 || >=18"
+    "node": "18 || >=20"
   },
   "scripts": {
-    "test": "tape test/index.js"
+    "test": "tape test/index.js",
+    "posttest": "npm run -s lint",
+    "lint": "eslint .",
+    "release": "semantic-release"
   },
   "dependencies": {
     "lodash.isfunction": "^3.0.9"
   },
   "devDependencies": {
+    "@kenan/eslint-config": "^11.0.1",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
+    "conventional-changelog-conventionalcommits": "^7.0.2",
+    "eslint": "^8.50.0",
     "lodash.isnull": "^3.0.0",
-    "tape": "^5.6.6"
+    "semantic-release": "^22.0.5",
+    "tape": "^5.7.0"
   }
 }

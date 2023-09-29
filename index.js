@@ -1,10 +1,13 @@
 'use strict';
 
-var isFunction = require('lodash.isfunction');
+const isFunction = require('lodash.isfunction');
 
 /** @type {number} */
-var cachedCores;
+let cachedCores;
 
+/**
+ * @returns {void}
+ */
 function estimateCores(force, callback) {
   if (isFunction(force)) {
     callback = force;
@@ -13,58 +16,61 @@ function estimateCores(force, callback) {
 
   // Return cached count if present
   if (cachedCores && !force) {
-    return callback(null, cachedCores);
+    callback(null, cachedCores);
+    return;
   }
 
   if (typeof navigator !== 'undefined'
       && navigator.hardwareConcurrency
       && navigator.hardwareConcurrency > 0) {
     cachedCores = navigator.hardwareConcurrency;
-    return callback(null, cachedCores);
+    callback(null, cachedCores);
+    return;
   }
 
   // Without Web Workers, the only core is the main thread
   if (typeof Worker === 'undefined') {
     cachedCores = 1;
-    return callback(null, cachedCores);
+    callback(null, cachedCores);
+    return;
   }
 
   // Can't estimate without Blob. Just go with 2.
   if (typeof Blob === 'undefined') {
     cachedCores = 2;
-    return callback(null, cachedCores);
+    callback(null, cachedCores);
+    return;
   }
 
-  var blobUrl = URL.createObjectURL(new Blob(['(',
+  const blobUrl = URL.createObjectURL(new Blob(['(',
     function() {
       self.addEventListener('message', function() {
-        var st = Date.now();
-        var et = st + 4;
-        while (Date.now() < et) {}
-        self.postMessage({st: st, et: et});
+        const st = Date.now();
+        const et = st + 4;
+        while (Date.now() < et) { /* empty */ }
+        self.postMessage({ st, et });
       });
     }.toString(),
-  ')()'], {type: 'application/javascript'}));
+    ')()'], { type: 'application/javascript' }));
 
   sample([], 5, 16);
 
   /**
-   * @param {number[]} max
+   * @param {readonly number[]} max
    * @param {number} samples
    * @param {number} numWorkers
    * @returns {void}
    */
   function sample(max, samples, numWorkers) {
     if (samples === 0) {
-      var avg = Math.floor(max.reduce(function(avg, x) {
-        return avg + x;
-      }, 0) / max.length);
+      const avg = Math.floor(max.reduce((avg, x) => avg + x, 0) / max.length);
       cachedCores = Math.max(1, avg);
       URL.revokeObjectURL(blobUrl);
-      return callback(null, cachedCores);
+      callback(null, cachedCores);
+      return;
     }
 
-    map(numWorkers, function(error, results) {
+    map(numWorkers, (_, results) => {
       max.push(reduce(numWorkers, results));
       sample(max, samples - 1, numWorkers);
     });
@@ -76,14 +82,14 @@ function estimateCores(force, callback) {
    * @returns {void}
    */
   function map(numWorkers, callback) {
-    var workers = [];
-    var results = [];
-    for (var i = 0; i < numWorkers; ++i) {
-      var worker = new Worker(blobUrl);
+    const workers = [];
+    const results = [];
+    for (let i = 0; i < numWorkers; ++i) {
+      const worker = new Worker(blobUrl);
       worker.addEventListener('message', function(ev) {
         results.push(ev.data);
         if (results.length === numWorkers) {
-          for (var i = 0; i < numWorkers; ++i) {
+          for (let i = 0; i < numWorkers; ++i) {
             workers[i].terminate();
           }
           callback(null, results);
@@ -91,7 +97,7 @@ function estimateCores(force, callback) {
       });
       workers.push(worker);
     }
-    for (var i = 0; i < numWorkers; ++i) {
+    for (let i = 0; i < numWorkers; ++i) {
       workers[i].postMessage(i);
     }
   }
@@ -102,17 +108,17 @@ function estimateCores(force, callback) {
    * @returns {number}
    */
   function reduce(numWorkers, results) {
-    var overlaps = [];
-    for (var n = 0; n < numWorkers; ++n) {
-      var r1 = results[n];
+    const overlaps = [];
+    for (let n = 0; n < numWorkers; ++n) {
+      const r1 = results[n];
 
       /** @type {number[]} */
-      var overlap = overlaps[n] = [];
-      for (var i = 0; i < numWorkers; ++i) {
+      const overlap = overlaps[n] = [];
+      for (let i = 0; i < numWorkers; ++i) {
         if (n === i) {
           continue;
         }
-        var r2 = results[i];
+        const r2 = results[i];
         if ((r1.st > r2.st && r1.st < r2.et)
             || (r2.st > r1.st && r2.st < r1.et)) {
           overlap.push(i);

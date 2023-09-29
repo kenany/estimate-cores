@@ -1,0 +1,6 @@
+{
+  "extends": "@kenan",
+  "env": {
+    "browser": true
+  }
+}

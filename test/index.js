@@ -16,5 +16,5 @@ test('estimates cores', (t) => {
   estimateCores((error, count) => {
     t.ok(isNull(error));
     t.ok(count > 0);
-  })
+  });
 });

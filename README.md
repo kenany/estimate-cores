@@ -7,11 +7,12 @@ save a core for the main thread.
 ## Example
 
 ``` javascript
-var estimateCores = require('estimate-cores');
+const estimateCores = require('estimate-cores');
 
-estimateCores(function(error, coreCount) {
+estimateCores((error, coreCount) => {
   if (error) {
-    throw error;
+    // handle error
+    return;
   }
 
   console.log(coreCount);
@@ -28,7 +29,7 @@ $ npm install estimate-cores
 ## API
 
 ``` javascript
-var estimateCores = require('estimate-cores');
+const estimateCores = require('estimate-cores');
 ```
 
 ### `estimateCores([force=false], callback)`
