@@ -1,3 +1,10 @@
+## [2.0.1](https://github.com/kenany/estimate-cores/compare/2.0.0...2.0.1) (2023-10-29)
+
+
+### Bug Fixes
+
+* update deps ([aabaf97](https://github.com/kenany/estimate-cores/commit/aabaf97a92a27db799ca0a003c1b3f5eaa96d0f8))
+
 ## [2.0.0](https://github.com/kenany/estimate-cores/compare/1.0.2...2.0.0) (2023-09-29)
 
 
