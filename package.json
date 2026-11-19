@@ -36,7 +36,7 @@
     "conventional-changelog-conventionalcommits": "9.3.1",
     "eslint": "8.57.1",
     "lodash.isnull": "3.0.0",
-    "semantic-release": "25.0.9",
+    "semantic-release": "26.0.1",
     "tape": "5.10.3"
   }
 }
